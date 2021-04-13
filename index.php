@@ -1,4 +1,10 @@
 <!doctype html>
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+    $_SESSION['source'] = "pls";
+}  ?>
 <html ng-app="app">
   <head>
 
@@ -66,7 +72,7 @@
     
       <p style="width:auto;float:right;text-align:right;">
       <?php
-      if (isset($_POST['submit_result'])){
+      if (isset($_POST['submit_result'])){    
         $search = $_POST["search"];
         $sql = "SELECT * FROM order_table WHERE order_ID =" . $search;
         //select order_id from order_table where userid = $userd, order_id = $order_id
@@ -82,14 +88,20 @@
       }
       ?>
     </p>
-
+    
+<!--All the backend php files to proces the form requests-->
+<?php include './scripts/store_rideshare_information.php';?>
 
 
 
 
 
     <!-- View of content in the selected page-->
-    <div ng-view></div>
+    <div ng-view><?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+}  ?></div>
     <script>
         var app = angular.module("app", ['ngRoute', 'angularCSS']);
         app.config(function($routeProvider){
@@ -113,48 +125,56 @@
             .when("/rideshare", {
               templateUrl: "templates/rideshare.php", 
               css: '/Iter34/css/styles.css',
-              controller: 'MainCtrl'
+              controller: 'mapController'
             })
             .when("/ride_and_delivery", {
-              templateUrl: "<h2>ride_and_delivery</h2>",
-               css: '/Iter34/css/styles.css'
+              templateUrl: "templates/ride_and_delivery.php",
+               css: '/Iter34/css/styles.css',
+               controller: 'mapController'
+              })
+              .when("/rideshare_checkout", {
+              templateUrl: "templates/rideshare_checkout.php",
+               css: '/Iter34/css/shopping_cart.css',
+               controller: 'mapController'
               })
 
         });
 
-        app.controller('MainCtrl', function ($scope, $window) {
+
+        // ---START--- Setting up and initializing the map
+  app.controller('mapController', function ($scope, $window) {
 
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
-    $window.map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 9,
-      center: {lat: 43.7272, lng: -79.4121}
-    });
+        $window.map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: 43.7272, lng: -79.4121}
+           });
 
-    directionsDisplay.setMap($window.map);
+        directionsDisplay.setMap($window.map);
 
-    var onChangeHandler = function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
-    };
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
 
-    document.getElementById('start').addEventListener('change', onChangeHandler);
-    document.getElementById('end').addEventListener('change', onChangeHandler);
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
 
   });
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    directionsService.route({
-      origin: document.getElementById('start').value,
-      destination: document.getElementById('end').value,
-      travelMode: 'DRIVING'
-    }, function(response, status) {
-      if (status === 'OK') {
-        directionsDisplay.setDirections(response);
-        
-      }
-    });
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+          directionsService.route({
+            origin: document.getElementById('start').value,
+            destination: document.getElementById('end').value,
+            travelMode: 'DRIVING'
+          }, function(response, status) {
+            if (status === 'OK') {
+              directionsDisplay.setDirections(response);
+              
+            }
+          });
   }
-      
+  // ----END-------  
 
 
     </script>
