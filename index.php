@@ -1,9 +1,10 @@
 <!doctype html>
 <?php
+require('./db/dbc.php');
 if(!isset($_SESSION)) 
 { 
     session_start(); 
-    $_SESSION['source'] = "pls";
+
 }  ?>
 <html ng-app="app">
   <head>
@@ -12,11 +13,24 @@ if(!isset($_SESSION))
     <meta charset="utf-8">
     <title>Plan for Smart Services(PS2)</title>
     <script src="/scripts/location.js"></script>
-    
+    <script src="./scripts/shopping_cart.js"></script>
+    <script src="./scripts/calculate_price.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <script src="/Iter34/node_modules/angular-css/angular-css.js"></script>
-    <script src="/Iter34/css/styles.css"></script>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <script>
+     
+      function search() {
+        var search = document.getElementById("search");
+        if (search.style.display=="none") {
+          search.style.display="block";
+        }
+        else{
+          search.style.display="none";
+        }
+      }
+    </script>
   </head>
   <body>
     <ul id = "menu">
@@ -42,27 +56,27 @@ if(!isset($_SESSION))
           
         }
         else {
-          echo "<li style='float:right'><a href='templates/signup.php'>Sign Up</a></li>";
+          echo "<li style='float:right'><a href='#!/signup'>Sign Up</a></li>";
         }
         ?>
         
         <li><a href="#!/reviews">Reviews</a></li>
         <?php if (!isset($_SESSION['user'])){
-          echo "<li style='float:right'><a href='templates/login.php'>Login</a></li>";
+          echo "<li style='float:right'><a href='#!/login'>Login</a></li>";
         }
         ?>
-        <li style="float:right"><a href="#"><span onclick="search()">Search</span></a></li>
+
+        <li style="float:right"><a href=""><span onclick="search()">Search</span></a></li>
         <li><a href="#">Type of Services</a>
           <ul>
             <li><a href="#!/rideshare">Rideshare</a></li>
             <li><a href="#!/ride_and_delivery">Ride & Delivery</a></li>
           </ul>
-        </li>
-        
+        </li> 
       </ul>
   
       <div id="search" style="float:right; display:none;">
-        <form action="#" method="POST">
+        <form action="" method="POST">
           <input type="text" placeholder="Search..." name="search">
           <button name="submit_result" type="submit">submit</button>
         </form>
@@ -90,7 +104,10 @@ if(!isset($_SESSION))
     </p>
     
 <!--All the backend php files to proces the form requests-->
-<?php include './scripts/store_rideshare_information.php';?>
+<?php include './scripts/store_rideshare_information.php';
+      include './scripts/confirm_order_rideshare.php';
+      include './scripts/store_delivery_information.php';
+      ?>
 
 
 
@@ -132,11 +149,28 @@ if(!isset($_SESSION))
                css: '/Iter34/css/styles.css',
                controller: 'mapController'
               })
-              .when("/rideshare_checkout", {
+            .when("/rideshare_checkout", {
               templateUrl: "templates/rideshare_checkout.php",
-               css: '/Iter34/css/shopping_cart.css',
-               controller: 'mapController'
+               css: '/Iter34/css/shopping_cart.css'
+               
               })
+              .when("/ride_and_delivery_checkout", {
+              templateUrl: "templates/ride_and_delivery_checkout.php",
+               css: '/Iter34/css/shopping_cart.css'
+               
+              })
+            .when("/login", {
+              templateUrl: "templates/login.php",
+              css: '/Iter34/css/login.css'
+              
+              })
+            .when("/signup", {
+              templateUrl: "templates/signup.php",
+              css: '/Iter34/css/login.css'
+              
+              })
+
+            .otherwise({redirectTo:'/'});
 
         });
 

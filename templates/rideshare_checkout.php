@@ -4,8 +4,10 @@
  { 
      session_start(); 
 
- } 
-  print_r($_SESSION); ?></h1>
+ }
+ 
+  if (isset($_SESSION['source']) && isset($_SESSION['destination'])) {echo strtoupper($_SESSION['source']) . " ➜ " . strtoupper($_SESSION['destination']);} else { echo "Please try again";}
+  ?></h1>
 
 
 
@@ -13,7 +15,19 @@
 
 
 <ul style="list-style-type:none;" id="drag" name="items">
-
+<?php 
+    require('../db/dbc.php');
+    $query = 'SELECT car_model, priceID FROM car_table';
+    $response = @mysqli_query($dbc, $query);
+    if ($response){
+        $count = 0;
+        while ($row = mysqli_fetch_array($response)){
+        echo "<li id ='".$count."' name='first' value='first'  draggable='true' ondragstart='drag(event)'><input type='hidden' name='item[]' value='".$row['car_model']. ",". $row['priceID']."'/>" . 
+        $row['car_model'] . " - $" . $row['priceID'] .  "<img src='https://media.wired.com/photos/5d09594a62bcb0c9752779d9/1:1/w_1500,h_1500,c_limit/Transpo_G70_TA-518126.jpg'  width='35' height='35'></li>";
+        $count++;
+        }
+  }
+  ?>
 
 </ul>
 
@@ -30,7 +44,7 @@
 <p class="total_price " id="items_price"></p>
 <input type="hidden" value="" name="total_price" id="form_price" />
 <input type="hidden" value="" name="total_distance" id="form_distance" />
-<input type="submit" value="Confirm Order" name="submit" class="confirm_button">
+<input type="submit" value="Confirm Order" name="submitOrderRideshare" class="confirm_button">
 </div>
 </form>
 

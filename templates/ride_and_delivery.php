@@ -32,5 +32,5 @@
       <label for="appt">Pickup time</label>
       <input type="time" id="time" value="" name="appt" required>      
       <br/>
-      <input type="submit" value="Submit" name="submit">
+      <input type="submit" value="Submit" name="submitDelivery">
     </form>
