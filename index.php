@@ -37,14 +37,8 @@ if(!isset($_SESSION))
         <li><a href="#!/">Home</a></li>
   
         <?php if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
-        echo "<li><a href='#'>db Maintain</a>";
-        echo "<ul>";
-        echo "<li><a href='templates/insert.php'>Insert</a></li>";
-        echo "<li><a href='templates/delete.php'>Delete</a></li>";
-        echo "<li><a href='templates/select.php'>Select</a></li>";
-        echo"<li><a href='templates/update.php'>Update</a></li>";
-        echo"</ul>";
-        echo"</li>";
+        echo "<li><a href='#!/dbMaintain'>db Maintain</a>";
+        echo "</li>";
         }
         ?>
         <li><a href="#!/aboutus">About Us</a></li>
@@ -167,7 +161,11 @@ if(!isset($_SESSION))
             .when("/signup", {
               templateUrl: "templates/signup.php",
               css: '/Iter34/css/login.css'
-              
+     
+              })
+            .when("/dbMaintain", {
+              templateUrl: "templates/maintain.php",
+               css: '/Iter34/css/styles.css'
               })
 
             .otherwise({redirectTo:'/'});
