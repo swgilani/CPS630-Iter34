@@ -38,6 +38,48 @@ if($tableCheck == FALSE){
     $result = mysqli_query($dbc,$sql) or die("Error inserting data to Car Table");
 }
 
+//If bike_table doesn't exist, create table
+$tableCheck = mysqli_query($dbc,'select 1 from `bike_table` LIMIT 1');
+if($tableCheck == FALSE){
+    $sql = "CREATE TABLE bike_table(
+        bikeID INT(11) NOT NULL AUTO_INCREMENT,
+        bike_model VARCHAR(40),
+        /*bike_code VARCHAR(11), not sure if we need a car code because we have cardID*/
+        availability_code INT,
+        priceID DECIMAL(38,2),
+        PRIMARY KEY(bikeID)
+        )";
+    $result = mysqli_query($dbc,$sql) or die("Unable to create Car Table $sql");
+    //Insert data into Car table
+    $sql = "INSERT INTO bike_table (bike_model,availability_code,priceID) 
+    VALUES ('Road Bike','1',4.99), ('Mountain Bike','1',6.89), ('Comuter Bike','1',3.99);
+    ";
+
+    $result = mysqli_query($dbc,$sql) or die("Error inserting data to Car Table");
+}
+
+//If car_green_table doesn't exist, create table
+$tableCheck = mysqli_query($dbc,'select 1 from `car_green_table` LIMIT 1');
+if($tableCheck == FALSE){
+    $sql = "CREATE TABLE car_green_table(
+        carID INT(11) NOT NULL AUTO_INCREMENT,
+        car_model VARCHAR(40),
+        /*car_code VARCHAR(11), not sure if we need a car code because we have cardID*/
+        availability_code INT,
+        priceID DECIMAL(38,2),
+        PRIMARY KEY(carID)
+        )";
+    $result = mysqli_query($dbc,$sql) or die("Unable to create Car Table $sql");
+    //Insert data into Car table
+    $sql = "INSERT INTO car_green_table (car_model,availability_code,priceID) 
+    VALUES ('Chevy Spark','1',10.99), ('Mitsubishi Mirage','1',9.89), ('Kia Rio','1',5.99),
+    ('Hyundai Accent','1',6.99), ('Nissan Versa','1', 12.99), ('Kia Forte','1', 8.99),
+    ('Hyundai Venue','1', 13.99), ('Chevy Trailblazer','1', 12.99), ('Toyota Corolla 2001','1', 5.99);
+    ";
+
+    $result = mysqli_query($dbc,$sql) or die("Error inserting data to Car Table");
+}
+
 //If trip_table doesn't exist, create table
 $tableCheck = mysqli_query($dbc,'select 1 from `trip_table` LIMIT 1');
 if($tableCheck == FALSE){
