@@ -20,7 +20,7 @@
      }
 </script>
    <ul id = "menu">
-       <li><a href="#!/">Home</a></li>
+       <li><a href="/iter34">Home</a></li>
 
        <?php
        if(!isset($_SESSION))
@@ -40,8 +40,8 @@
        echo "</li>";
        }
        ?>
-       <li><a href="#!/aboutus">About Us</a></li>
-       <li><a href="#!/contactus">Contact Us</a></li>
+       <li><a href="/iter34/#!/aboutus">About Us</a></li>
+       <li><a href="/iter34/#!/contactus">Contact Us</a></li>
 
        <?php if (isset($_SESSION['user'])){
          echo "<li style='float:right'><a href='scripts/logout.php'>Sign Out</a></li>";
@@ -53,7 +53,7 @@
        }
        ?>
 
-       <li><a href="#!/reviews">Reviews</a></li>
+       <li><a href="/iter34/#!/reviews">Reviews</a></li>
        <?php if (!isset($_SESSION['user'])){
          echo "<li style='float:right'><a href='#!/login'>Login</a></li>";
        }
@@ -62,10 +62,10 @@
        <li style="float:right"><a href=""><span onclick="search()">Search</span></a></li>
        <li><a href="#">Type of Services</a>
          <ul>
-           <li><a href="#!/rideshare">Rideshare</a></li>
-           <li><a href="#!/bikeshare">Bikeshare</a></li>
-           <li><a href="#!/rideshare_green">Rideshare GREEN</a></li>
-           <li><a href="#!/ride_and_delivery">Ride & Delivery</a></li>
+           <li><a href="/iter34/#!/rideshare">Rideshare</a></li>
+           <li><a href="/iter34/#!/bikeshare">Bikeshare</a></li>
+           <li><a href="/iter34/#!/rideshare_green">Rideshare GREEN</a></li>
+           <li><a href="/iter34/#!/ride_and_delivery">Ride & Delivery</a></li>
 
          </ul>
        </li>
