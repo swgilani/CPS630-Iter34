@@ -25,7 +25,7 @@ if(!isset($_SESSION))
 
   <body>
     <ul id = "menu">
-      <li><a href="../index.php">Home</a></li>
+      <li><a href="/iter34">Home</a></li>
       <?php if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
        echo "<li><a href='#'>db Maintain</a>";
        echo "<ul>"; 
