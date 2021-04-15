@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Plan for Smart Services(PS2)</title>
+  <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
+</head>
+<body>
 <h2>Db Maintain</h2>
 <?php
 include "../db/dbc.php";
@@ -7,10 +15,68 @@ if(!isset($_SESSION))
   session_start();
 }
 
+$sql = "SELECT * FROM bike_table";
+$records = $dbc -> query($sql); // fetch data from database
+?>
+<!-- Bike table  -->
+  <table>
+  <tr>
+  <td> Bike ID </td>
+  <td> Bike Model </td>
+  <td> Availability Code </td>
+  <td> Price </td>
+  <td> Delete </td>
+  </tr>
+  <?php
+  while($data = $records->fetch_assoc())
+  {
+  ?>
+    <tr>
+      <td><?php echo $data['bikeID']; ?></td>
+      <td><?php echo $data['bike_model']; ?></td>
+      <td><?php echo $data['availability_code']; ?></td>
+      <td><?php echo $data['priceID']; ?></td>
+      <td><a href="delete.php?table=car_table&condition=<?php echo $data['bikeID'];?>">Delete</a></td>
+    </tr>
+  <?php
+  }
+  ?>
+</table>
+<br>
+<?php
 $sql = "SELECT * FROM car_table";
 $records = $dbc -> query($sql); // fetch data from database
 ?>
   <!-- Car table  -->
+  <table>
+  <tr>
+  <td> Car ID </td>
+  <td> Car Model </td>
+  <td> Availability Code </td>
+  <td> Price </td>
+  <td> Delete </td>
+  </tr>
+<?php
+while($data = $records->fetch_assoc())
+{
+?>
+  <tr>
+    <td><?php echo $data['carID']; ?></td>
+    <td><?php echo $data['car_model']; ?></td>
+    <td><?php echo $data['availability_code']; ?></td>
+    <td><?php echo $data['priceID']; ?></td>
+    <td><a href="delete.php?table=car_table&condition=<?php echo $data['carID'];?>">Delete</a></td>
+  </tr>
+<?php
+}
+?>
+</table>
+<br>
+<?php
+$sql = "SELECT * FROM car_green_table";
+$records = $dbc -> query($sql); // fetch data from database
+?>
+<!-- Car Green table  -->
   <table>
   <tr>
   <td> Car ID </td>
@@ -133,6 +199,33 @@ while($data = $records->fetch_assoc())
 </table>
 <br>
 <?php
+$sql = "SELECT * FROM review_table";
+$records = $dbc -> query($sql); // fetch data from database
+?>
+<!-- Review Table -->
+  <table>
+  <tr>
+  <td> User ID </td>
+  <td> Rating </td>
+  <td> Feedback </td>
+  <td> Delete </td>
+  </tr>
+<?php
+while($data = $records->fetch_assoc())
+{
+?>
+  <tr>
+  <td><?php echo $data['userID']; ?></td>
+  <td><?php echo $data['rating']; ?></td>
+  <td><?php echo $data['feedback']; ?></td>
+  <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['userID'];?>">Delete</a></td>
+  </tr>
+<?php
+}
+?>
+</table>
+<br>
+<?php
 $sql = "SELECT * FROM trip_table";
 $records = $dbc -> query($sql); // fetch data from database
 ?>
@@ -145,7 +238,6 @@ $records = $dbc -> query($sql); // fetch data from database
   <td> Distance </td>
   <td> Car ID </td>
   <td> Price </td>
-  <td> Update </td>
   <td> Delete </td>
   </tr>
 <?php
@@ -180,7 +272,8 @@ $records = $dbc -> query($sql); // fetch data from database
   <td> Email </td>
   <td> Postal Code </td>
   <td> Password </td>
-  <td> Balance </td>
+  <td> Credit Card </td>
+  <td> Salt </td>
   <td> Delete </td>
   </tr>
 <?php
@@ -188,14 +281,15 @@ while($data = $records->fetch_assoc())
 {
 ?>
 <tr>
-  <td><?php echo $data['userID']; ?></td>
-  <td><?php echo $data['first_name']; ?></td>
-  <td><?php echo $data['last_name']; ?></td>
-  <td><?php echo $data['phone_number']; ?></td>
-  <td><?php echo $data['email']; ?></td>
-  <td><?php echo $data['postalCode']; ?></td>
-  <td><?php echo $data['pw']; ?></td>
-  <td><?php echo $data['balance']; ?></td>
+  <td><?php echo $data['userID'];?></td>
+  <td><?php echo $data['first_name'];?></td>
+  <td><?php echo $data['last_name'];?></td>
+  <td><?php echo $data['phone_number'];?></td>
+  <td><?php echo $data['email'];?></td>
+  <td><?php echo $data['postalCode'];?></td>
+  <td><?php echo $data['pw'];?></td>
+  <td><?php echo $data['creditCard'];?></td>
+  <td><?php echo $data['salt'];?></td>
   <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['userID'];?>">Delete</a></td>
 </tr>
 <?php
@@ -206,3 +300,5 @@ while($data = $records->fetch_assoc())
 <?php
 $dbc -> close();
 ?>
+</body>
+</html>
