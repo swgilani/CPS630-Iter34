@@ -64,7 +64,10 @@ if(!isset($_SESSION))
         <li><a href="#">Type of Services</a>
           <ul>
             <li><a href="#!/rideshare">Rideshare</a></li>
+            <li><a href="#!/bikeshare">Bikeshare</a></li>
+            <li><a href="#!/rideshare_green">Rideshare GREEN</a></li>
             <li><a href="#!/ride_and_delivery">Ride & Delivery</a></li>
+            
           </ul>
         </li> 
       </ul>
@@ -99,7 +102,11 @@ if(!isset($_SESSION))
     
 <!--All the backend php files to proces the form requests-->
 <?php include './scripts/store_rideshare_information.php';
+      include './scripts/store_bikeshare_information.php';
+      include './scripts/store_rideshare_green_information.php';
       include './scripts/confirm_order_rideshare.php';
+      include './scripts/confirm_order_bikeshare.php';
+      include './scripts/confirm_order_rideshare_green.php';
       include './scripts/store_delivery_information.php';
       ?>
 
@@ -138,6 +145,16 @@ if(!isset($_SESSION))
               css: '/Iter34/css/styles.css',
               controller: 'mapController'
             })
+            .when("/bikeshare", {
+              templateUrl: "templates/bikeshare.php", 
+              css: '/Iter34/css/styles.css',
+              controller: 'mapController'
+            })
+            .when("/rideshare_green", {
+              templateUrl: "templates/rideshare_green.php", 
+              css: '/Iter34/css/styles.css',
+              controller: 'mapController'
+            })
             .when("/ride_and_delivery", {
               templateUrl: "templates/ride_and_delivery.php",
                css: '/Iter34/css/styles.css',
@@ -145,6 +162,16 @@ if(!isset($_SESSION))
               })
             .when("/rideshare_checkout", {
               templateUrl: "templates/rideshare_checkout.php",
+               css: '/Iter34/css/shopping_cart.css'
+               
+              })
+              .when("/bikeshare_checkout", {
+              templateUrl: "templates/bikeshare_checkout.php",
+               css: '/Iter34/css/shopping_cart.css'
+               
+              })
+              .when("/rideshare_green_checkout", {
+              templateUrl: "templates/rideshare_green_checkout.php",
                css: '/Iter34/css/shopping_cart.css'
                
               })
@@ -167,6 +194,7 @@ if(!isset($_SESSION))
               templateUrl: "templates/maintain.php",
                css: '/Iter34/css/styles.css'
               })
+              
 
             .otherwise({redirectTo:'/'});
 

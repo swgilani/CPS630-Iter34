@@ -5,12 +5,12 @@ require './db/dbc.php';
      session_start(); 
  } 
 
-    if (isset($_POST['submitOrderRideshare']) && !isset($_SESSION['user']) ){
+    if (isset($_POST['submitOrderRideshareGREEN']) && !isset($_SESSION['user']) ){
    
         echo '<script>alert("You must be logged in to perform this action!")</script>'; 
     }
 
-    else if (isset($_POST['submitOrderRideshare']) && isset($_SESSION['user']) && isset($_SESSION['userID'])){
+    else if (isset($_POST['submitOrderRideshareGREEN']) && isset($_SESSION['user']) && isset($_SESSION['userID'])){
 
         $total_price = $_POST['total_price'];
         $total_distance=  $_POST['total_distance'];
@@ -26,7 +26,7 @@ require './db/dbc.php';
     
 
 
-        $sql_car = "SELECT * FROM car_table WHERE car_model='$items'";
+        $sql_car = "SELECT * FROM car_green_table WHERE car_model='$items'";
         $return_car_id = $dbc->query($sql_car);
         if ($return_car_id->num_rows > 0) {
             // output data of each row
@@ -63,7 +63,7 @@ require './db/dbc.php';
 
     }
 
-    else if (isset($_POST['submitOrderRideshare'])) {
+    else if (isset($_POST['submitOrderRideshareGREEN'])) {
         echo "<script>alert('Error occured. Please try again.')</script>";  
     }
 
