@@ -1,7 +1,15 @@
 <?php
   include "../db/dbc.php";
 
+  if ($_GET['table'] == "bike_table")
+  {
+    $sql = "DELETE FROM " .$_GET['table']. " WHERE bikeID = " .$_GET['condition'];
+  }
   if ($_GET['table'] == "car_table")
+  {
+    $sql = "DELETE FROM " .$_GET['table']. " WHERE carID = " .$_GET['condition'];
+  }
+  if ($_GET['table'] == "car_green_table")
   {
     $sql = "DELETE FROM " .$_GET['table']. " WHERE carID = " .$_GET['condition'];
   }
@@ -25,6 +33,10 @@
   {
     $sql = "DELETE FROM " .$_GET['table']. " WHERE tripID = " .$_GET['condition'];
   }
+  if ($_GET['table'] == "reviews_table")
+  {
+    $sql = "DELETE FROM " .$_GET['table']. " WHERE userID = " .$_GET['condition'];
+  }
   //success or fail
   if($dbc->query($sql) === TRUE)
   {
@@ -37,3 +49,4 @@
     echo "ERROR: Could not able to execute $sql. ";
   }
 ?>
+
