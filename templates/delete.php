@@ -29,7 +29,7 @@
   if($dbc->query($sql) === TRUE)
   {
     $dbc -> close();
-    header("location:maintain.php");
+    header("location:dbmaintain.php");
     exit;
   }
   else

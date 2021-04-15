@@ -226,5 +226,5 @@ if(!isset($_SESSION))
         }
       }
       ?>
-          </table>
+      </table>
     </p>

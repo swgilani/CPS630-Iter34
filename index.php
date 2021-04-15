@@ -37,7 +37,13 @@ if(!isset($_SESSION))
         <li><a href="#!/">Home</a></li>
   
         <?php if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
-        echo "<li><a href='#!/dbMaintain'>db Maintain</a>";
+        echo "<li><a href='templates/dbmaintain.php'>db Maintain</a>";
+        echo "<ul>";
+        echo "<li><a href='templates/insert.php'>Insert</a></li>";
+        echo "<li><a href='templates/dbmaintain.php'>Delete</a></li>";
+        echo "<li><a href='templates/select.php'>Select</a></li>";
+        echo "<li><a href='templates/update.php'>Update</a></li>";
+        echo "</ul>";
         echo "</li>";
         }
         ?>
