@@ -199,7 +199,7 @@ while($data = $records->fetch_assoc())
 </table>
 <br>
 <?php
-$sql = "SELECT * FROM review_table";
+$sql = "SELECT * FROM reviews_table";
 $records = $dbc -> query($sql); // fetch data from database
 ?>
 <!-- Review Table -->
