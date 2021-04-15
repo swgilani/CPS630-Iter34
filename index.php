@@ -53,7 +53,7 @@ if(!isset($_SESSION))
         <?php if (isset($_SESSION['user'])){
           echo "<li style='float:right'><a href='scripts/logout.php'>Sign Out</a></li>";
           echo "<li style='float:right'><a href=''>Welcome ". $_SESSION['user'] ."</a></li>";
-          
+          echo '<li style="float:right"><a href="#"><span onclick="search()">Search</span></a></li>';
         }
         else {
           echo "<li style='float:right'><a href='#!/signup'>Sign Up</a></li>";
@@ -66,7 +66,7 @@ if(!isset($_SESSION))
         }
         ?>
 
-        <li style="float:right"><a href=""><span onclick="search()">Search</span></a></li>
+        <!-- <li style="float:right"><a href="#"><span onclick="search()">Search</span></a></li> -->
         <li><a href="#">Type of Services</a>
           <ul>
             <li><a href="#!/rideshare">Rideshare</a></li>
