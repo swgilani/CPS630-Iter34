@@ -17,6 +17,11 @@
 </tr>
 <?php
 require('../db/dbc.php');
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+
+}  
 // Check connection
 
 $sql = "SELECT userID, rating, feedback FROM reviews_table";
@@ -33,14 +38,19 @@ $dbc->close();
 ?>
 </table>
 
+
 <br/>
 <br/>
+<?php if (isset($_SESSION['user'])){
+  echo '
   <form action="./db/reviewProcess.php" method="post">
     <p style="width:100%">Rate our overall services. (1-5)</p>
     <input type="number" id="rating" name="rating" min="1" max="5" required> 
     <p style="width:100%">Write your feedback.</p>
-      <textarea class="form" rows="5" id='feedback' name='feedback' required></textarea>
+      <textarea class="form" rows="5" id="feedback" name="feedback" required></textarea>
       <br>
-      <button type="submit" name='reviewSubmit'>Submit</button>
-  </form>
+      <button type="submit" name="reviewSubmit">Submit</button>
+  </form>';
+}
+  ?>
 </div>
