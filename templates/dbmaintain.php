@@ -6,14 +6,103 @@
   <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
 </head>
 <body>
+
+<script>
+     
+     function search() {
+       var search = document.getElementById("search");
+       if (search.style.display=="none") {
+         search.style.display="block";
+       }
+       else{
+         search.style.display="none";
+       }
+     }
+</script>
+   <ul id = "menu">
+       <li><a href="#!/">Home</a></li>
+ 
+       <?php 
+       if(!isset($_SESSION)) 
+       { 
+           session_start(); 
+       
+       } 
+       
+       if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
+       echo "<li><a href='#'>db Maintain</a>";
+       echo "<ul>"; 
+       echo "<li><a href='insert.php'>Insert</a></li>";
+       echo "<li><a href='dbmaintain.php'>Delete</a></li>";
+       echo "<li><a href='select.php'>Select</a></li>";
+       echo "<li><a href='update.php'>Update</a></li>";
+       echo "</ul>";
+       echo "</li>";
+       }
+       ?>
+       <li><a href="#!/aboutus">About Us</a></li>
+       <li><a href="#!/contactus">Contact Us</a></li>
+       
+       <?php if (isset($_SESSION['user'])){
+         echo "<li style='float:right'><a href='scripts/logout.php'>Sign Out</a></li>";
+         echo "<li style='float:right'><a href=''>Welcome ". $_SESSION['user'] ."</a></li>";
+         
+       }
+       else {
+         echo "<li style='float:right'><a href='#!/signup'>Sign Up</a></li>";
+       }
+       ?>
+       
+       <li><a href="#!/reviews">Reviews</a></li>
+       <?php if (!isset($_SESSION['user'])){
+         echo "<li style='float:right'><a href='#!/login'>Login</a></li>";
+       }
+       ?>
+
+       <li style="float:right"><a href=""><span onclick="search()">Search</span></a></li>
+       <li><a href="#">Type of Services</a>
+         <ul>
+           <li><a href="#!/rideshare">Rideshare</a></li>
+           <li><a href="#!/bikeshare">Bikeshare</a></li>
+           <li><a href="#!/rideshare_green">Rideshare GREEN</a></li>
+           <li><a href="#!/ride_and_delivery">Ride & Delivery</a></li>
+           
+         </ul>
+       </li> 
+     </ul>
+ 
+     <div id="search" style="float:right; display:none;">
+       <form action="" method="POST">
+         <input type="text" placeholder="Search..." name="search">
+         <button name="submit_result" type="submit">submit</button>
+       </form>
+     </div>
+ 
+     <br><br>
+   
+     <p style="width:auto;float:right;text-align:right;">
+     <?php
+     if (isset($_POST['submit_result'])){    
+       $search = $_POST["search"];
+       $sql = "SELECT * FROM order_table WHERE order_ID =" . $search;
+       //select order_id from order_table where userid = $userd, order_id = $order_id
+       $result = $dbc->query($sql);
+       if ($result->num_rows > 0) {
+         // output data of each row
+         while($row = $result->fetch_assoc()) {
+           echo "Your order ID is ".$search." has completed.";
+         }
+       } else {
+         echo "Cannot find order ID ".$search.", please try again.";
+       }
+     }
+     ?>
+   </p>
+
 <h2>Db Maintain</h2>
 <?php
 include "../db/dbc.php";
 
-if(!isset($_SESSION))
-{
-  session_start();
-}
 
 $sql = "SELECT * FROM bike_table";
 $records = $dbc -> query($sql); // fetch data from database
@@ -94,7 +183,7 @@ while($data = $records->fetch_assoc())
     <td><?php echo $data['car_model']; ?></td>
     <td><?php echo $data['availability_code']; ?></td>
     <td><?php echo $data['priceID']; ?></td>
-    <td><a href="delete.php?table=car_table&condition=<?php echo $data['carID'];?>">Delete</a></td>
+    <td><a href="delete.php?table=car_green_table&condition=<?php echo $data['carID'];?>">Delete</a></td>
   </tr>
 <?php
 }

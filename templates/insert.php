@@ -27,14 +27,15 @@ if(!isset($_SESSION))
     <ul id = "menu">
       <li><a href="../index.php">Home</a></li>
       <?php if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
-      echo "<li><a href='#'>db Maintain</a>";
-      echo "<ul>";
-      echo "<li><a href='insert.php'>Insert</a></li>";
-      echo "<li><a href='delete.php'>Delete</a></li>";
-      echo "<li><a href='select.php'>Select</a></li>";
-      echo"<li><a href='update.php'>Update</a></li>";
-      echo"</ul>";
-      echo"</li>";
+       echo "<li><a href='#'>db Maintain</a>";
+       echo "<ul>"; 
+       echo "<li><a href='insert.php'>Insert</a></li>";
+       echo "<li><a href='dbmaintain.php'>Delete</a></li>";
+       echo "<li><a href='select.php'>Select</a></li>";
+       echo "<li><a href='update.php'>Update</a></li>";
+       echo "</ul>";
+       echo "</li>";
+      
       }
       ?>
       <li><a href="aboutus.php">About Us</a></li>
