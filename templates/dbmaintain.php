@@ -8,7 +8,7 @@
 <body>
 
 <script>
-     
+
      function search() {
        var search = document.getElementById("search");
        if (search.style.display=="none") {
@@ -21,17 +21,17 @@
 </script>
    <ul id = "menu">
        <li><a href="#!/">Home</a></li>
- 
-       <?php 
-       if(!isset($_SESSION)) 
-       { 
-           session_start(); 
-       
-       } 
-       
+
+       <?php
+       if(!isset($_SESSION))
+       {
+           session_start();
+
+       }
+
        if (isset($_SESSION['user']) && $_SESSION['userID'] == 1){
        echo "<li><a href='#'>db Maintain</a>";
-       echo "<ul>"; 
+       echo "<ul>";
        echo "<li><a href='insert.php'>Insert</a></li>";
        echo "<li><a href='dbmaintain.php'>Delete</a></li>";
        echo "<li><a href='select.php'>Select</a></li>";
@@ -42,17 +42,17 @@
        ?>
        <li><a href="#!/aboutus">About Us</a></li>
        <li><a href="#!/contactus">Contact Us</a></li>
-       
+
        <?php if (isset($_SESSION['user'])){
          echo "<li style='float:right'><a href='scripts/logout.php'>Sign Out</a></li>";
          echo "<li style='float:right'><a href=''>Welcome ". $_SESSION['user'] ."</a></li>";
-         
+
        }
        else {
          echo "<li style='float:right'><a href='#!/signup'>Sign Up</a></li>";
        }
        ?>
-       
+
        <li><a href="#!/reviews">Reviews</a></li>
        <?php if (!isset($_SESSION['user'])){
          echo "<li style='float:right'><a href='#!/login'>Login</a></li>";
@@ -66,23 +66,23 @@
            <li><a href="#!/bikeshare">Bikeshare</a></li>
            <li><a href="#!/rideshare_green">Rideshare GREEN</a></li>
            <li><a href="#!/ride_and_delivery">Ride & Delivery</a></li>
-           
+
          </ul>
-       </li> 
+       </li>
      </ul>
- 
+
      <div id="search" style="float:right; display:none;">
        <form action="" method="POST">
          <input type="text" placeholder="Search..." name="search">
          <button name="submit_result" type="submit">submit</button>
        </form>
      </div>
- 
+
      <br><br>
-   
+
      <p style="width:auto;float:right;text-align:right;">
      <?php
-     if (isset($_POST['submit_result'])){    
+     if (isset($_POST['submit_result'])){
        $search = $_POST["search"];
        $sql = "SELECT * FROM order_table WHERE order_ID =" . $search;
        //select order_id from order_table where userid = $userd, order_id = $order_id
@@ -99,7 +99,7 @@
      ?>
    </p>
 
-<h2>Db Maintain</h2>
+<h2>Delete</h2>
 <?php
 include "../db/dbc.php";
 
@@ -109,6 +109,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
 <!-- Bike table  -->
   <table>
+  <h2 style="font-size: 1.0em;">Bike Table</h2>
   <tr>
   <td> Bike ID </td>
   <td> Bike Model </td>
@@ -125,7 +126,7 @@ $records = $dbc -> query($sql); // fetch data from database
       <td><?php echo $data['bike_model']; ?></td>
       <td><?php echo $data['availability_code']; ?></td>
       <td><?php echo $data['priceID']; ?></td>
-      <td><a href="delete.php?table=car_table&condition=<?php echo $data['bikeID'];?>">Delete</a></td>
+      <td><a href="delete.php?table=bike_table&condition=<?php echo $data['bikeID'];?>">Delete</a></td>
     </tr>
   <?php
   }
@@ -138,6 +139,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
   <!-- Car table  -->
   <table>
+  <h2 style="font-size: 1.0em;">Car Table</h2>
   <tr>
   <td> Car ID </td>
   <td> Car Model </td>
@@ -167,6 +169,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
 <!-- Car Green table  -->
   <table>
+  <h2 style="font-size: 1.0em;">Car Green Table</h2>
   <tr>
   <td> Car ID </td>
   <td> Car Model </td>
@@ -196,6 +199,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
   <!-- Coffee Table -->
   <table>
+  <h2 style="font-size: 1.0em;">Coffee Table</h2>
   <tr>
   <td> Coffee ID </td>
   <td> Store Code </td>
@@ -227,6 +231,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
   <!-- Flower Table -->
   <table>
+  <h2 style="font-size: 1.0em;">Flower Table</h2>
   <tr>
   <td> Flower ID </td>
   <td> Store Code </td>
@@ -257,6 +262,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
 <table>
 <tr>
+<h2 style="font-size: 1.0em;">Order Table</h2>
 <td> Order ID </td>
 <td> Date Issued </td>
 <td> Date Done </td>
@@ -280,7 +286,7 @@ while($data = $records->fetch_assoc())
   <td><?php echo $data['userID']; ?></td>
   <td><?php echo $data['trip_ID']; ?></td>
   <td><?php echo $data['store_name']; ?></td>
-  <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['order_ID'];?>">Delete</a></td>
+  <td><a href="delete.php?table=order_table&condition=<?php echo $data['order_ID'];?>">Delete</a></td>
   </tr>
 <?php
 }
@@ -294,6 +300,7 @@ $records = $dbc -> query($sql); // fetch data from database
 <!-- Review Table -->
   <table>
   <tr>
+  <h2 style="font-size: 1.0em;">Reviews Table</h2>
   <td> User ID </td>
   <td> Rating </td>
   <td> Feedback </td>
@@ -307,7 +314,7 @@ while($data = $records->fetch_assoc())
   <td><?php echo $data['userID']; ?></td>
   <td><?php echo $data['rating']; ?></td>
   <td><?php echo $data['feedback']; ?></td>
-  <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['userID'];?>">Delete</a></td>
+  <td><a href="delete.php?table=reviews_table&condition=<?php echo $data['userID'];?>">Delete</a></td>
   </tr>
 <?php
 }
@@ -320,6 +327,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
 <!-- Trip Table -->
   <table>
+  <h2 style="font-size: 1.0em;">Trip Table</h2>
   <tr>
   <td> Trip ID </td>
   <td> Source Code </td>
@@ -340,7 +348,7 @@ while($data = $records->fetch_assoc())
   <td><?php echo $data['distance']; ?></td>
   <td><?php echo $data['carID']; ?></td>
   <td><?php echo $data['price']; ?></td>
-  <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['tripID'];?>">Delete</a></td>
+  <td><a href="delete.php?table=trip_table&condition=<?php echo $data['tripID'];?>">Delete</a></td>
   </tr>
 <?php
 }
@@ -353,6 +361,7 @@ $records = $dbc -> query($sql); // fetch data from database
 ?>
 <!-- User Table -->
   <table>
+  <h2 style="font-size: 1.0em;">User Table</h2>
   <tr>
   <td> User ID </td>
   <td> First Name </td>
@@ -379,7 +388,7 @@ while($data = $records->fetch_assoc())
   <td><?php echo $data['pw'];?></td>
   <td><?php echo $data['creditCard'];?></td>
   <td><?php echo $data['salt'];?></td>
-  <td><a href="delete.php?table=<?php echo $table;?>&condition=<?php echo $data['userID'];?>">Delete</a></td>
+  <td><a href="delete.php?table=user_table&condition=<?php echo $data['userID'];?>">Delete</a></td>
 </tr>
 <?php
 }
