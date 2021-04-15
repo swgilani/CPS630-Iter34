@@ -6,79 +6,41 @@
 <span class="fa fa-star checked"></span>
 <span class="fa fa-star checked"></span>
 <span class="fa fa-star"></span>
-<p>4.1 average based on 254 reviews.</p>
 <hr style="border:3px solid #f1f1f1">
 
-<div class="row">
-  <div class="side">
-    <div>5 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-5"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>150</div>
-  </div>
-  <div class="side">
-    <div>4 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-4"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>63</div>
-  </div>
-  <div class="side">
-    <div>3 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-3"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>15</div>
-  </div>
-  <div class="side">
-    <div>2 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-2"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>6</div>
-  </div>
-  <div class="side">
-    <div>1 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-1"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>20</div>
-  </div>
-</div>
-<br/>
-<br/>
 
-    <p style="width:100%">Rate our overall services.</p>
-      <select id="rate">
-        <option value="1star">1</option>
-        <option value="2stars">2</option>
-        <option value="3stars">3</option>
-        <option value="4stars">4</option>
-        <option value="5stars">5</option>
-      </select>
+<table>
+<tr>
+<th>UserID</th>
+<th>Rating (1-5)</th>
+<th>Feedback</th>
+</tr>
+<?php
+require('../db/dbc.php');
+// Check connection
+
+$sql = "SELECT userID, rating, feedback FROM reviews_table";
+$result = $dbc->query($sql);
+if ($result->num_rows > 0) {
+// output data of each row
+while($row = $result->fetch_assoc()) {
+echo "<tr><td>" . $row["userID"]. "</td><td>" . $row["rating"] . "</td><td>"
+. $row["feedback"]. "</td></tr>";
+}
+echo "</table>";
+} else { echo "0 results"; }
+$dbc->close();
+?>
+</table>
+
+<br/>
+<br/>
+  <form action="./db/reviewProcess.php" method="post">
+    <p style="width:100%">Rate our overall services. (1-5)</p>
+    <input type="number" id="rating" name="rating" min="1" max="5" required> 
     <p style="width:100%">Write your feedback.</p>
-      <textarea class="form" rows="5"></textarea>
+      <textarea class="form" rows="5" id='feedback' name='feedback' required></textarea>
       <br>
-      <button type="submit">Submit</button>
-   </div>
+      <button type="submit" name='reviewSubmit'>Submit</button>
+  </form>
+</div>

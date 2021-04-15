@@ -1,5 +1,16 @@
 <?php
 require 'dbc.php';
+//If reviews_table doesn't exist, create table
+$tableCheck = mysqli_query($dbc,'select 1 from `reviews_table` LIMIT 1');
+if($tableCheck == FALSE){
+    $sql = "CREATE TABLE reviews_table(
+        userID INT(11) NOT NULL,
+        rating INT(2),
+        feedback VARCHAR(120)
+        )";
+    $result = mysqli_query($dbc,$sql) or die("Unable to create Reviews Table $sql");
+}
+
 //If user_table doesn't exist, create table
 $tableCheck = mysqli_query($dbc,'select 1 from `user_table` LIMIT 1');
 if($tableCheck == FALSE){
@@ -11,7 +22,8 @@ if($tableCheck == FALSE){
         email VARCHAR(50),
         postalCode VARCHAR(6),
         pw VARCHAR(120),
-        balance DECIMAL(38,2)
+        creditCard VARCHAR(100),
+        salt VARCHAR(100)
         )";
     $result = mysqli_query($dbc,$sql) or die("Unable to create User Table $sql");
 }

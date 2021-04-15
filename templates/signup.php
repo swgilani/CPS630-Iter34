@@ -60,6 +60,9 @@
 
           <label for="postalCode"><b>Home Postal Code</b></label>
           <input type="text" id="postalCode" name="postalCode" placeholder="Enter Postal Code" maxlength="6" required> 
+
+          <label for="creditCard"><b>Credit Card #</b></label>
+          <input type="text" id="creditCard" name="creditCard" placeholder="Enter Credit Card #" maxlength="16" required> 
           
           <!-- <input type="submit" name="submit" value='Sign Up'> -->
           <div class="clearfix">
