@@ -196,8 +196,20 @@ if(!isset($_SESSION))
               css: '/Iter34/css/login.css'
      
               })
-            .when("/dbMaintain", {
-              templateUrl: "templates/maintain.php",
+            .when("/delete", {
+              templateUrl: "templates/delete.php",
+               css: '/Iter34/css/styles.css'
+              })
+            .when("/insert", {
+              templateUrl: "templates/insert.php",
+               css: '/Iter34/css/styles.css'
+              })
+            .when("/select", {
+              templateUrl: "templates/select.php",
+               css: '/Iter34/css/styles.css'
+              })
+            .when("/update", {
+              templateUrl: "templates/update.php",
                css: '/Iter34/css/styles.css'
               })
               
